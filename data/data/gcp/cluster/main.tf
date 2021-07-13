@@ -25,6 +25,7 @@ module "master" {
 
   image          = local.gcp_image
   instance_count = var.master_count
+  name           = var.master_name
   machine_type   = var.gcp_master_instance_type
   cluster_id     = var.cluster_id
   ignition       = var.ignition_master

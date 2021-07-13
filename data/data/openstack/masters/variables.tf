@@ -16,6 +16,11 @@ variable "instance_count" {
   type = string
 }
 
+variable "name" {
+  type    = string
+  default = "master"
+}
+
 variable "master_sg_ids" {
   type        = list(string)
   default     = ["default"]

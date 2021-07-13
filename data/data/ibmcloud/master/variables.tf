@@ -10,6 +10,11 @@ variable "instance_count" {
   type = string
 }
 
+variable "name" {
+  type    = string
+  default = "master"
+}
+
 variable "ignition" {
   type = string
 }

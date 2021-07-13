@@ -32,6 +32,18 @@ EOF
 
 }
 
+variable "master_name" {
+  type = string
+
+  default = "master"
+
+  description = <<EOF
+The name for master nodes to be created.
+This applies only to cloud platforms.
+EOF
+
+}
+
 variable "base_domain" {
   type = string
 

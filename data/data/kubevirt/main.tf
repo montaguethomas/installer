@@ -17,6 +17,7 @@ module "datavolume" {
 module "masters" {
   source         = "./masters"
   master_count   = var.master_count
+  name           = var.master_name
   cluster_id     = var.cluster_id
   ignition_data  = var.ignition_master
   namespace      = var.kubevirt_namespace

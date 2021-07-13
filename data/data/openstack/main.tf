@@ -59,6 +59,7 @@ module "masters" {
   cluster_id      = var.cluster_id
   flavor_name     = var.openstack_master_flavor_name
   instance_count  = var.master_count
+  name            = var.master_name
   master_port_ids = module.topology.master_port_ids
   user_data_ign   = var.ignition_master
   master_sg_ids = concat(

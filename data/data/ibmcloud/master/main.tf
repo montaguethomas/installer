@@ -17,7 +17,7 @@ resource "ibm_is_instance" "master_node" {
     var.lb_kubernetes_api_public_id
   ]
 
-  name           = "${local.prefix}-master-${count.index}"
+  name           = "${local.prefix}-${var.name}-${count.index}"
   image          = var.vsi_image_id
   profile        = var.vsi_profile
   resource_group = var.resource_group_id

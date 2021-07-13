@@ -18,6 +18,11 @@ variable "instance_count" {
   description = "The number of master instances to launch."
 }
 
+variable "name" {
+  type    = string
+  default = "master"
+}
+
 variable "labels" {
   type        = map(string)
   description = "GCP labels to be applied to created resources."

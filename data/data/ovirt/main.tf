@@ -39,6 +39,7 @@ module "affinity_group" {
 module "masters" {
   source                           = "./masters"
   master_count                     = var.master_count
+  name                             = var.master_name
   ovirt_cluster_id                 = var.ovirt_cluster_id
   ovirt_template_id                = module.template.releaseimage_template_id
   ignition_master                  = var.ignition_master
@@ -55,4 +56,3 @@ module "masters" {
   ovirt_master_auto_pinning_policy = var.ovirt_master_auto_pinning_policy
   ovirt_master_hugepages           = var.ovirt_master_hugepages
 }
-

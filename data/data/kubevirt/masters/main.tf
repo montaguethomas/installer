@@ -4,7 +4,7 @@ data "ignition_file" "hostname" {
   path  = "/etc/hostname"
 
   content {
-    content = "${var.cluster_id}-master-${count.index}"
+    content = "${var.cluster_id}-${var.name}-${count.index}"
   }
 }
 
@@ -24,7 +24,7 @@ resource "kubernetes_secret" "master_ignition" {
   count = var.master_count
 
   metadata {
-    name      = "${var.cluster_id}-master-${count.index}-ignition"
+    name      = "${var.cluster_id}-${var.name}-${count.index}-ignition"
     namespace = var.namespace
     labels    = var.labels
   }
@@ -46,7 +46,7 @@ resource "kubevirt_virtual_machine" "master_vm" {
   count = var.master_count
 
   metadata {
-    name      = "${var.cluster_id}-master-${count.index}"
+    name      = "${var.cluster_id}-${var.name}-${count.index}"
     namespace = var.namespace
     labels    = merge(var.labels, local.anti_affinity_label)
   }
@@ -54,7 +54,7 @@ resource "kubevirt_virtual_machine" "master_vm" {
     run_strategy = "Always"
     data_volume_templates {
       metadata {
-        name      = "${var.cluster_id}-master-${count.index}-bootvolume"
+        name      = "${var.cluster_id}-${var.name}-${count.index}-bootvolume"
         namespace = var.namespace
       }
       spec {
@@ -78,7 +78,7 @@ resource "kubevirt_virtual_machine" "master_vm" {
     template {
       metadata {
         labels = {
-          "kubevirt.io/vm" = "${var.cluster_id}-master-${count.index}"
+          "kubevirt.io/vm" = "${var.cluster_id}-${var.name}-${count.index}"
         }
       }
       spec {
@@ -87,7 +87,7 @@ resource "kubevirt_virtual_machine" "master_vm" {
           name = "datavolumedisk1"
           volume_source {
             data_volume {
-              name = "${var.cluster_id}-master-${count.index}-bootvolume"
+              name = "${var.cluster_id}-${var.name}-${count.index}-bootvolume"
             }
           }
         }

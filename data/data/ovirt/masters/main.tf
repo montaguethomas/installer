@@ -1,6 +1,6 @@
 resource "ovirt_vm" "master" {
   count            = var.master_count
-  name             = "${var.cluster_id}-master-${count.index}"
+  name             = "${var.cluster_id}-${var.name}-${count.index}"
   cluster_id       = var.ovirt_cluster_id
   template_id      = var.ovirt_template_id
   instance_type_id = var.ovirt_master_instance_type_id
@@ -16,7 +16,7 @@ resource "ovirt_vm" "master" {
   hugepages           = var.ovirt_master_hugepages > 0 ? var.ovirt_master_hugepages : null
 
   initialization {
-    host_name     = "${var.cluster_id}-master-${count.index}"
+    host_name     = "${var.cluster_id}-${var.name}-${count.index}"
     custom_script = var.ignition_master
   }
 

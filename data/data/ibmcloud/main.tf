@@ -96,6 +96,7 @@ module "master" {
 
   cluster_id        = var.cluster_id
   instance_count    = var.master_count
+  name              = var.master_name
   ignition          = var.ignition_master
   public_endpoints  = local.public_endpoints
   resource_group_id = local.resource_group_id

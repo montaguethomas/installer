@@ -6,6 +6,11 @@ variable "master_count" {
   description = "The number of master vm instances"
 }
 
+variable "name" {
+  type    = string
+  default = "master"
+}
+
 variable "namespace" {
   type        = string
   description = "The namespace/project in the infracluster which all the tenantcluster resources should be created in"

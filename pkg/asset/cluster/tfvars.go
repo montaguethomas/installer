@@ -148,6 +148,7 @@ func (t *TerraformVariables) Generate(parents asset.Parents) error {
 	}
 
 	masterCount := len(mastersAsset.MachineFiles)
+	masterName := installConfig.Config.ControlPlane.Name
 	data, err := tfvars.TFVars(
 		clusterID.InfraID,
 		installConfig.Config.ClusterDomain(),
@@ -159,6 +160,7 @@ func (t *TerraformVariables) Generate(parents asset.Parents) error {
 		bootstrapIgn,
 		masterIgn,
 		masterCount,
+		masterName,
 	)
 	if err != nil {
 		return errors.Wrap(err, "failed to get Terraform variables")

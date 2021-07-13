@@ -30,6 +30,11 @@ variable "instance_count" {
   type = string
 }
 
+variable "name" {
+  type    = string
+  default = "master"
+}
+
 variable "elb_backend_pool_v4_id" {
   type = string
 }

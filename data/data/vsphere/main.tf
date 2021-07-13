@@ -101,8 +101,7 @@ module "bootstrap" {
 module "master" {
   source = "./master"
 
-  // limitation of baremetal-runtimecfg.  The hostname must be master
-  name           = "master"
+  name           = var.master_name
   instance_count = var.master_count
   ignition       = var.ignition_master
 
@@ -124,4 +123,3 @@ module "master" {
   cores_per_socket = var.vsphere_control_plane_cores_per_socket
   disk_size        = var.vsphere_control_plane_disk_gib
 }
-

@@ -31,7 +31,7 @@ module "bootstrap" {
 
 resource "libvirt_volume" "master" {
   count          = var.master_count
-  name           = "${var.cluster_id}-master-${count.index}"
+  name           = "${var.cluster_id}-${var.master_name}-${count.index}"
   base_volume_id = module.volume.coreos_base_volume_id
   pool           = libvirt_pool.storage_pool.name
   size           = var.libvirt_master_size
@@ -89,7 +89,7 @@ resource "libvirt_network" "net" {
 resource "libvirt_domain" "master" {
   count = var.master_count
 
-  name = "${var.cluster_id}-master-${count.index}"
+  name = "${var.cluster_id}-${var.master_name}-${count.index}"
 
   memory = var.libvirt_master_memory
   vcpu   = var.libvirt_master_vcpu
@@ -111,7 +111,7 @@ resource "libvirt_domain" "master" {
 
   network_interface {
     network_id = libvirt_network.net.id
-    hostname   = "${var.cluster_id}-master-${count.index}.${var.cluster_domain}"
+    hostname   = "${var.cluster_id}-${var.master_name}-${count.index}.${var.cluster_domain}"
     addresses  = [var.libvirt_master_ips[count.index]]
   }
 }
@@ -145,4 +145,3 @@ data "libvirt_network_dnsmasq_options_template" "options" {
   option_name  = var.libvirt_dnsmasq_options[count.index]["option_name"]
   option_value = var.libvirt_dnsmasq_options[count.index]["option_value"]
 }
-

@@ -120,7 +120,7 @@ resource "aws_network_interface" "master" {
 
   tags = merge(
     {
-      "Name" = "${var.cluster_id}-master-${count.index}"
+      "Name" = "${var.cluster_id}-${var.name}-${count.index}"
     },
     var.tags,
   )
@@ -148,7 +148,7 @@ resource "aws_instance" "master" {
 
   tags = merge(
     {
-      "Name" = "${var.cluster_id}-master-${count.index}"
+      "Name" = "${var.cluster_id}-${var.name}-${count.index}"
     },
     var.tags,
   )
@@ -163,7 +163,7 @@ resource "aws_instance" "master" {
 
   volume_tags = merge(
     {
-      "Name" = "${var.cluster_id}-master-${count.index}-vol"
+      "Name" = "${var.cluster_id}-${var.name}-${count.index}-vol"
     },
     var.tags,
   )
@@ -175,4 +175,3 @@ resource "aws_lb_target_group_attachment" "master" {
   target_group_arn = var.target_group_arns[count.index % local.target_group_arns_length]
   target_id        = aws_instance.master[floor(count.index / local.target_group_arns_length)].private_ip
 }
-

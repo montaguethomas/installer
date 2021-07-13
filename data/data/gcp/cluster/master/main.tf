@@ -37,7 +37,7 @@ resource "google_compute_instance" "master" {
   count       = var.instance_count
   description = local.description
 
-  name         = "${var.cluster_id}-master-${count.index}"
+  name         = "${var.cluster_id}-${var.name}-${count.index}"
   machine_type = var.machine_type
   zone         = element(var.zones, count.index)
 
@@ -80,7 +80,7 @@ resource "google_compute_instance_group" "master" {
   count       = length(var.zones)
   description = local.description
 
-  name = "${var.cluster_id}-master-${var.zones[count.index]}"
+  name = "${var.cluster_id}-${var.name}-${var.zones[count.index]}"
   #network = var.network
   zone = var.zones[count.index]
 

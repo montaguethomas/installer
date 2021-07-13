@@ -12,6 +12,11 @@ variable "master_count" {
   default     = 3
 }
 
+variable "name" {
+  type    = string
+  default = "master"
+}
+
 variable "ovirt_cluster_id" {
   type        = string
   description = "The ID of Cluster"

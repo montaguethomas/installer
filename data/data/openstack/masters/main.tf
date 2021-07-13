@@ -13,7 +13,7 @@ data "ignition_file" "hostname" {
 
   content {
     content = <<EOF
-${var.cluster_id}-master-${count.index}
+${var.cluster_id}-${var.name}-${count.index}
 EOF
   }
 }
@@ -31,7 +31,7 @@ data "ignition_config" "master_ignition_config" {
 }
 
 resource "openstack_blockstorage_volume_v3" "master_volume" {
-  name = "${var.cluster_id}-master-${count.index}"
+  name = "${var.cluster_id}-${var.name}-${count.index}"
   description = local.description
   count = var.root_volume_size == null ? 0 : var.instance_count
 
@@ -66,7 +66,7 @@ resource "openstack_compute_servergroup_v2" "master_group" {
 # [1]: https://github.com/openshift/installer/tree/master/docs/user/openstack#master-nodes
 resource "openstack_compute_instance_v2" "master_conf_0" {
   count = var.instance_count > 0 ? 1 : 0
-  name = "${var.cluster_id}-master-0"
+  name = "${var.cluster_id}-${var.name}-0"
 
   flavor_id = data.openstack_compute_flavor_v2.masters_flavor.id
   image_id = var.root_volume_size == null ? var.base_image_id : null
@@ -107,14 +107,14 @@ resource "openstack_compute_instance_v2" "master_conf_0" {
   tags = ["openshiftClusterID=${var.cluster_id}"]
 
   metadata = {
-    Name = "${var.cluster_id}-master"
+    Name = "${var.cluster_id}-${var.name}"
     openshiftClusterID = var.cluster_id
   }
 }
 
 resource "openstack_compute_instance_v2" "master_conf_1" {
   count = var.instance_count > 1 ? 1 : 0
-  name = "${var.cluster_id}-master-1"
+  name = "${var.cluster_id}-${var.name}-1"
 
   flavor_id = data.openstack_compute_flavor_v2.masters_flavor.id
   image_id = var.root_volume_size == null ? var.base_image_id : null
@@ -155,7 +155,7 @@ resource "openstack_compute_instance_v2" "master_conf_1" {
   tags = ["openshiftClusterID=${var.cluster_id}"]
 
   metadata = {
-    Name = "${var.cluster_id}-master"
+    Name = "${var.cluster_id}-${var.name}"
     openshiftClusterID = var.cluster_id
   }
 
@@ -164,7 +164,7 @@ resource "openstack_compute_instance_v2" "master_conf_1" {
 
 resource "openstack_compute_instance_v2" "master_conf_2" {
   count = var.instance_count > 2 ? 1 : 0
-  name = "${var.cluster_id}-master-2"
+  name = "${var.cluster_id}-${var.name}-2"
 
   flavor_id = data.openstack_compute_flavor_v2.masters_flavor.id
   image_id = var.root_volume_size == null ? var.base_image_id : null
@@ -205,7 +205,7 @@ resource "openstack_compute_instance_v2" "master_conf_2" {
   tags = ["openshiftClusterID=${var.cluster_id}"]
 
   metadata = {
-    Name = "${var.cluster_id}-master"
+    Name = "${var.cluster_id}-${var.name}"
     openshiftClusterID = var.cluster_id
   }
 
