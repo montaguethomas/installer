@@ -239,7 +239,7 @@ func (t *TerraformVariables) Generate(parents asset.Parents) error {
 		}
 
 		workerIAMRoleName := ""
-		if mp := installConfig.Config.WorkerMachinePool(); mp != nil {
+		if mp := &installConfig.Config.Compute[0]; mp != nil {
 			awsMP := &aws.MachinePool{}
 			awsMP.Set(installConfig.Config.AWS.DefaultMachinePlatform)
 			awsMP.Set(mp.Platform.AWS)

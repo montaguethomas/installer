@@ -107,7 +107,7 @@ func tagSharedIAMRoles(ctx context.Context, clusterID string, installConfig *ins
 			iamRoleNames = append(iamRoleNames, &iamRole)
 		}
 	}
-	if mp := installConfig.Config.WorkerMachinePool(); mp != nil {
+	for _, mp := range installConfig.Config.Compute {
 		awsMP := &awstypes.MachinePool{}
 		awsMP.Set(installConfig.Config.AWS.DefaultMachinePlatform)
 		awsMP.Set(mp.Platform.AWS)
